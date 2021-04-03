@@ -26,12 +26,23 @@ export class UsersController {
   }
 
   @Get()
-  getAllUsers() {
-    return this.usersService.getUsers();
+  async getAllUsers() {
+    try {
+      const users = await this.usersService.getUsers();
+
+      return { users };
+    } catch (err) {
+      throw new Error('error getting users');
+    }
   }
 
   @Get(':id')
-  getUser(@Param('id') userId: string) {
-    return this.usersService.getUserById(userId);
+  async getUser(@Param('id') userId: string) {
+    try {
+      const user = await this.usersService.getUserById(userId);
+      return { user };
+    } catch (err) {
+      throw new Error('error getting user');
+    }
   }
 }
