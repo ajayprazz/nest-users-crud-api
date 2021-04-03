@@ -1,33 +1,25 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
 import { UsersService } from './users.service';
+import { UserDto } from './user.dto';
+import { UserValidationPipe } from './user.validation.pipe';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  addUser(
-    // @Body() completeBody,
-    @Body('name') name: string,
-    @Body('gender') gender: string,
-    @Body('phone') phone: string,
-    @Body('email') email: string,
-    @Body('address') address: string,
-    @Body('nationality') nationality: string,
-    @Body('dob') dob: string,
-    @Body('educationBackground') educationBackground: string,
-    @Body('modeOfContact') modeOfContact: string,
-  ) {
+  @UsePipes(new UserValidationPipe())
+  addUser(@Body() user: UserDto) {
     this.usersService.addUser(
-      name,
-      gender,
-      phone,
-      email,
-      address,
-      nationality,
-      dob,
-      educationBackground,
-      modeOfContact,
+      user.name,
+      user.gender,
+      user.phone,
+      user.email,
+      user.address,
+      user.nationality,
+      user.dob,
+      user.educationBackground,
+      user.modeOfContact,
     );
 
     return { message: 'user added successfuly' };
