@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { promises as fs } from 'fs';
 import { parseAsync } from 'json2csv';
+import * as neatCSV from 'neat-csv';
 import { nanoid } from 'nanoid';
 import { User } from './user.model';
 
@@ -74,6 +75,40 @@ export class UsersService {
       } catch (err) {
         throw new Error(err.message);
       }
+    }
+  }
+
+  async getUsers() {
+    try {
+      const csvFile = await fs.readFile(__dirname + '/../../src/db/users.csv', {
+        flag: 'a+',
+      });
+
+      const csvData = await neatCSV(csvFile);
+
+      return csvData;
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  async getUserById(id: string) {
+    try {
+      const csvFile = await fs.readFile(__dirname + '/../../src/db/users.csv', {
+        flag: 'a+',
+      });
+
+      const csvData = await neatCSV(csvFile);
+
+      const user = csvData.find((user) => user.id === id);
+
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+
+      return user;
+    } catch (err) {
+      throw new Error(err);
     }
   }
 }

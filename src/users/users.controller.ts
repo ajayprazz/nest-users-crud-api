@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -31,5 +31,15 @@ export class UsersController {
     );
 
     return { message: 'user added successfuly' };
+  }
+
+  @Get()
+  getAllUsers() {
+    return this.usersService.getUsers();
+  }
+
+  @Get(':id')
+  getUser(@Param('id') userId: string) {
+    return this.usersService.getUserById(userId);
   }
 }
