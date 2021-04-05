@@ -86,7 +86,7 @@ export class UsersService {
 
       const csvData = await neatCSV(csvFile);
 
-      return csvData;
+      return { users: csvData };
     } catch (err) {
       throw new Error(err);
     }
@@ -106,7 +106,7 @@ export class UsersService {
         throw new NotFoundException('User not found');
       }
 
-      return user;
+      return { user };
     } catch (err) {
       throw new Error(err);
     }
