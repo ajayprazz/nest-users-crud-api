@@ -1,5 +1,10 @@
 import { IsString, IsEmail, IsNotEmpty } from 'class-validator';
 
+/*
+group phoneRequired is used when preferred mode of contact is phone
+group emailRequired is used when preferred mode of contact is email
+*/
+
 export class UserDto {
   @IsNotEmpty({ always: true })
   @IsString({ always: true })

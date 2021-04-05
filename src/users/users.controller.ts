@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UsePipes } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UsePipes,
+  Query,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './user.dto';
 import { UserValidationPipe } from './user.validation.pipe';
@@ -26,8 +34,14 @@ export class UsersController {
   }
 
   @Get()
-  getAllUsers() {
-    return this.usersService.getUsers();
+  getAllUsers(
+    @Query('pageSize') pageSize: number,
+    @Query('pageNum') pageNum: number,
+  ) {
+    return this.usersService.getUsers(
+      pageSize ? Number(pageSize) : 10,
+      pageNum ? Number(pageNum) : 1,
+    );
   }
 
   @Get(':id')

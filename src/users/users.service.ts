@@ -78,15 +78,22 @@ export class UsersService {
     }
   }
 
-  async getUsers() {
+  async getUsers(pageSize: number, pageNum: number) {
     try {
+      console.log({ pageSize, pageNum });
       const csvFile = await fs.readFile(__dirname + '/../../src/db/users.csv', {
         flag: 'a+',
       });
 
-      const csvData = await neatCSV(csvFile);
+      const csvData = (await neatCSV(csvFile)).reverse();
 
-      return { users: csvData };
+      const totalUsers = csvData.length;
+
+      const totalPages = Math.ceil(totalUsers / pageSize);
+
+      const users = csvData.slice((pageNum - 1) * pageSize, pageNum * pageSize);
+
+      return { users, totalPages, totalUsers };
     } catch (err) {
       throw new Error(err);
     }
