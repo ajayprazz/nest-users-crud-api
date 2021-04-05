@@ -80,7 +80,6 @@ export class UsersService {
 
   async getUsers(pageSize: number, pageNum: number) {
     try {
-      console.log({ pageSize, pageNum });
       const csvFile = await fs.readFile(__dirname + '/../../src/db/users.csv', {
         flag: 'a+',
       });
