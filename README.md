@@ -37,6 +37,14 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## API Endpoints
+
+### `POST http:localhost:4000/users` - add user
+
+### `GET http:localhost:4000/users?pageSize=1&pageNum=1` - get all users data
+
+### `GET http:localhost:4000/users/:id` - get user by id
+
 ## Libraries Used
 
 ### [json@csv](https://www.npmjs.com/package/json2csv)
