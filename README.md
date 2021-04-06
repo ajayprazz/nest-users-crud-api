@@ -37,6 +37,8 @@ $ npm run start:prod
 
 ### `GET http:localhost:4000/users/:id` - get user by id
 
+The API is hosted at https://nest-users-crud-api.herokuapp.com
+
 ## Libraries Used
 
 ### [json@csv](https://www.npmjs.com/package/json2csv)
