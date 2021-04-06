@@ -16,14 +16,6 @@ $ cd nest-users-crud-api
 $ npm install
 ```
 
-## Creating directory for csv
-
-Create the database directory before running the application.
-
-```
-$ mkdir src/database
-```
-
 ## Running the app
 
 ```bash

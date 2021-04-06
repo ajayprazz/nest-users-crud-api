@@ -49,7 +49,7 @@ export class UsersService {
     const newLine = '\n';
 
     try {
-      await fs.stat(__dirname + '/../../src/db/users.csv');
+      await fs.stat(__dirname + '/../../src/users.csv');
 
       //avoid appending header if file already exisits
       opts.header = false;
@@ -57,21 +57,17 @@ export class UsersService {
       try {
         const updatedCsv = (await parseAsync(newUser, opts)) + newLine;
 
-        (await fs.appendFile(
-          __dirname + '/../../src/db/users.csv',
-          updatedCsv,
-        )) + newLine;
+        (await fs.appendFile(__dirname + '/../../src/users.csv', updatedCsv)) +
+          newLine;
       } catch (err) {
         throw new Error(err.message);
       }
     } catch (err) {
-      console.log(err);
-      console.log('file dowsnot exists');
       //file doesnot exists
       try {
         const updatedCsv = (await parseAsync(newUser, opts)) + newLine;
 
-        fs.writeFile(__dirname + '/../../src/db/users.csv', updatedCsv);
+        fs.writeFile(__dirname + '/../../src/users.csv', updatedCsv);
       } catch (err) {
         throw new Error(err.message);
       }
@@ -80,7 +76,7 @@ export class UsersService {
 
   async getUsers(pageSize: number, pageNum: number) {
     try {
-      const csvFile = await fs.readFile(__dirname + '/../../src/db/users.csv', {
+      const csvFile = await fs.readFile(__dirname + '/../../src/users.csv', {
         flag: 'a+',
       });
 
@@ -100,7 +96,7 @@ export class UsersService {
 
   async getUserById(id: string) {
     try {
-      const csvFile = await fs.readFile(__dirname + '/../../src/db/users.csv', {
+      const csvFile = await fs.readFile(__dirname + '/../../src/users.csv', {
         flag: 'a+',
       });
 
